@@ -33,3 +33,6 @@ rvm install ruby-2.3.1
 rvm --default use ruby-2.3.1
 gem install bundler pry rspec guard rubocop
 
+# Install maven
+RUN apt-get insall -y maven
+
