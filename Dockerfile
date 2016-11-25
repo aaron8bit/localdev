@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Update and install basic ubuntu things
 RUN apt-get update
-RUN apt-get install -y git curl tmux sudo vim
+RUN apt-get install -y git git-flow curl tmux sudo vim
 RUN useradd -u 1000 -g 100 -G 27 -c Aaron -d /home/aja -s /bin/bash -m aja
 RUN echo "aja ALL=NOPASSWD:ALL" >> /etc/sudoers
 
@@ -22,8 +22,8 @@ fonts/install.sh && \
 rm -rf fonts
 
 # Set up powerline for root user
-RUN echo "" >> ~/.bashrc && >
-echo "# Start powerline" >> ~/.bashrc && >
+RUN echo "" >> ~/.bashrc && \
+echo "# Start powerline" >> ~/.bashrc && \
 echo ". /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh" >> ~/.bashrc
 
 # Install maven
@@ -33,8 +33,8 @@ RUN apt-get install -y maven
 USER aja
 
 # Set up powerline for non-root user
-RUN echo "" >> ~/.bashrc && >
-echo "# Start powerline" >> ~/.bashrc && >
+RUN echo "" >> ~/.bashrc && \
+echo "# Start powerline" >> ~/.bashrc && \
 echo ". /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh" >> ~/.bashrc
 
 # Having trouble with oh-my-git fonts
