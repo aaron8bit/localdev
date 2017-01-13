@@ -1,0 +1,47 @@
+#/bin/bash
+NAME="aaron8bit/localdev"
+VERSION="7"
+IMAGE="${NAME}:${VERSION}"
+
+# This is working only but it is fragile
+# I am not sure how I want the user mapping to work
+# I am not sure how I want directory mapping to work
+
+exec docker run -it \
+ --rm=true \
+ --net=host \
+ --workdir="$(pwd)" \
+ --volume=/etc/localtime:/etc/localtime \
+ --volume="${HOME}":"${HOME}" \
+ --volume="$(pwd)":"$(pwd)" \
+ ${IMAGE} \
+bash 
+
+#exec docker run -it \
+# --rm=true \
+# --net=host \
+# --workdir="$(pwd)" \
+# --volume=/etc/passwd:/etc/passwd \
+# --volume=/etc/group:/etc/group \
+# --volume=/etc/localtime:/etc/localtime \
+# --volume="${HOME}":"${HOME}" \
+# --volume="$(pwd)":"$(pwd)" \
+# --user=$(id -u):$(id -g) \
+# ${IMAGE} \
+#bash 
+
+#exec docker run -it \
+# --rm=true \
+# --net=host \
+# --workdir="$(pwd)" \
+# --volume=/etc/passwd:/etc/passwd \
+# --volume=/etc/group:/etc/group \
+# --volume=/etc/localtime:/etc/localtime \
+# --volume=/etc/timezone:/etc/timezone \
+# --volume="${HOME}":"${HOME}" \
+# --volume="$(pwd)":"$(pwd)" \
+# $(for group in $(id --groups); do echo "--group-add=${group}"; done) \
+# --user=$(id -u):$(id -g) \
+# -e USER="${USER}" \
+# ${IMAGE} \
+#bash 
