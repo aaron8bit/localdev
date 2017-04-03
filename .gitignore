@@ -1,0 +1,4 @@
+*.swp
+install_rvm.sh
+install_ohmyzsh.sh
+gradle-3.3-all.zip

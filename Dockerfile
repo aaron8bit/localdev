@@ -26,12 +26,16 @@ RUN apt-get install -y maven
 # Everything else should be non-root
 USER aja
 
+# Copy a bunch of installation material for later use
+COPY install_rvm.sh install_ohmyzsh.sh aaron8bit.zsh-theme gradle-3.3-all.zip /home/aja/
+
 # Install rvm
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 # why does ruby hate zsh? bash works fine...
-RUN curl -sSL https://get.rvm.io | bash -s stable --ruby && \
+RUN cat /home/aja/install_rvm.sh | bash -s stable --ruby && \
   echo "# Source rvm" >> ~aja/.zshrc && \
-  echo "source /home/aja/.rvm/scripts/rvm" >> ~aja/.zshrc
+  echo "source /home/aja/.rvm/scripts/rvm" >> ~aja/.zshrc && \
+  rm /home/aja/install_rvm.sh
 
 # Install and configure ruby-2.3.1
 RUN source /home/aja/.rvm/scripts/rvm && \
@@ -42,18 +46,16 @@ RUN source /home/aja/.rvm/scripts/rvm && \
 
 # Install gradle
 # This should check the download, md5 or something
-RUN curl -L https://services.gradle.org/distributions/gradle-3.3-all.zip -o /tmp/gradle-3.2.1-all.zip && \
-  unzip /tmp/gradle-3.2.1-all.zip -d /home/aja/ && \
+RUN unzip /home/aja/gradle-3.2.1-all.zip -d /home/aja/ && \
   echo "# Gradle config" >> ~aja/.zshrc && \
   echo "export GRADLE_HOME=~aja/gradle-3.2.1" >> ~aja/.zshrc && \
-  echo "export PATH=$PATH:$GRADLE_HOME/bin" >> ~aja/.zshrc
+  echo "export PATH=$PATH:$GRADLE_HOME/bin" >> ~aja/.zshrc && \
+  rm /home/aja/gradle-3.2.1-all.zip
 
-COPY aaron8bit.zsh-theme /tmp/aaron8bit.zsh-theme
-RUN curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -o /tmp/install.oh-my-zsh.sh && \
-  chmod +x /tmp/install.oh-my-zsh.sh
 # the install exits with 1 but seems to work fine
-RUN /tmp/install.oh-my-zsh.sh; \
-  cp /tmp/aaron8bit.zsh-theme ~/.oh-my-zsh/themes/ && \
+RUN /home/aja/install_ohmyzsh.sh; \
+  mv /home/aja/aaron8bit.zsh-theme ~/.oh-my-zsh/themes/ && \
   sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="aaron8bit"/g' ~/.zshrc && \
-  sed -i 's/# CASE_SENSITIVE="true"/CASE_SENSITIVE="true"/g' ~/.zshrc
+  sed -i 's/# CASE_SENSITIVE="true"/CASE_SENSITIVE="true"/g' ~/.zshrc && \
+  rm /home/aja/install_ohmyzsh.sh
 
