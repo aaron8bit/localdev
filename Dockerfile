@@ -46,11 +46,11 @@ RUN source /home/aja/.rvm/scripts/rvm && \
 
 # Install gradle
 # This should check the download, md5 or something
-RUN unzip /home/aja/gradle-3.2.1-all.zip -d /home/aja/ && \
+RUN unzip /home/aja/gradle-3.3-all.zip -d /home/aja/ && \
   echo "# Gradle config" >> ~aja/.zshrc && \
-  echo "export GRADLE_HOME=~aja/gradle-3.2.1" >> ~aja/.zshrc && \
+  echo "export GRADLE_HOME=~aja/gradle-3.3" >> ~aja/.zshrc && \
   echo "export PATH=$PATH:$GRADLE_HOME/bin" >> ~aja/.zshrc && \
-  rm /home/aja/gradle-3.2.1-all.zip
+  rm /home/aja/gradle-3.3-all.zip
 
 # the install exits with 1 but seems to work fine
 RUN /home/aja/install_ohmyzsh.sh; \
