@@ -1,6 +1,6 @@
-#/bin/bash
+#!/bin/bash
 NAME="aaron8bit/localdev"
-VERSION="7"
+VERSION="latest"
 IMAGE="${NAME}:${VERSION}"
 
 # This is working only but it is fragile
@@ -8,14 +8,15 @@ IMAGE="${NAME}:${VERSION}"
 # I am not sure how I want directory mapping to work
 
 exec docker run -it \
+ --hostname=DevDocker \
  --rm=true \
  --net=host \
  --workdir="$(pwd)" \
  --volume=/etc/localtime:/etc/localtime \
- --volume="${HOME}":"${HOME}" \
- --volume="$(pwd)":"$(pwd)" \
+ --volume="${HOME}/repos":"/home/aja/repos" \
+ --workdir="/home/aja/repos" \
  ${IMAGE} \
-bash 
+zsh 
 
 #exec docker run -it \
 # --rm=true \
