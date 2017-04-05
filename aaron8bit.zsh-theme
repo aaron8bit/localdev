@@ -12,7 +12,7 @@ PROMPT='%{${fg[yellow]}%}%n%{$reset_color%}%{${fg[yellow]}%}@%m%{$reset_color%} 
 #RPROMPT='$(git_prompt_info)%{$fg[green]%}%~%{$reset_color%}'
 
 # put FQ pwd on far right side
-RPROMPT='%{$fg[green]%}%~%{$reset_color%}'
+RPROMPT='# %{$fg[green]%}%~%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[blue]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "

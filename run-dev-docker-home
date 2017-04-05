@@ -1,5 +1,5 @@
 #!/bin/bash
-NAME="aaron8bit/localdev"
+NAME="aaron8bit/devdocker"
 VERSION="latest"
 IMAGE="${NAME}:${VERSION}"
 
