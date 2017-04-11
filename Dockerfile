@@ -2,12 +2,14 @@ FROM ubuntu:16.04
 MAINTAINER Aaron Albert <aaron8bit@gmail.com>
 
 # Update and install basic ubuntu things
-RUN apt-get update
-RUN apt-get update --fix-missing
-RUN apt-get upgrade -y
-# Not sure I like this idea
-#RUN apt-get install -y apt-utils
-RUN apt-get install -y git git-flow curl tmux sudo vim unzip zsh
+RUN apt-get update && \
+  apt-get update --fix-missing && \
+  apt-get install -y git git-flow curl tmux sudo vim unzip zsh software-properties-common python-lxml docker.io
+
+# Add latest Ansible
+RUN apt-add-repository -y ppa:ansible/ansible && \
+  apt-get update && \
+  apt-get install -y ansible
 
 # Use zsh while running commands to avoid unexpected problems related to sh
 SHELL ["/bin/zsh", "-c"]

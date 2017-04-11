@@ -9,6 +9,7 @@ exec docker run -it \
  --net=host \
  --workdir="$(pwd)" \
  --volume=/etc/localtime:/etc/localtime \
+ --volume=/var/run/docker.sock:/var/run/docker.sock \
  --volume="${HOME}":"${HOME}" \
  --volume="${HOME}/.gitconfig":"/home/aja/.gitconfig" \
  --volume="${HOME}/.ssh":"/home/aja/.ssh" \
